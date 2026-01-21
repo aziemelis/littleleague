@@ -6,7 +6,8 @@ import com.aziemelis.littleleauge.services.PlayerService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -24,26 +25,30 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<PlayerEntity> getAll() {
-        return List.of();
+        return StreamSupport.stream(playerRepository
+                .findAll()
+                .spliterator(),
+                false)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public Optional<PlayerEntity> getOne(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean exists(Long id) {
-        return false;
-    }
-
-    @Override
-    public PlayerEntity partialUpdate(PlayerEntity playerEntity) {
-        return null;
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
+//    @Override
+//    public Optional<PlayerEntity> getOne(Long id) {
+//        return Optional.empty();
+//    }
+//
+//    @Override
+//    public boolean exists(Long id) {
+//        return false;
+//    }
+//
+//    @Override
+//    public PlayerEntity partialUpdate(PlayerEntity playerEntity) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void delete(Long id) {
+//
+//    }
 }

@@ -10,7 +10,7 @@ public class TestDataUtil {
                 .firstName("Anthony")
                 .lastName("Edwards")
                 .fullName("Anthony Edwards")
-                .isActive(true)
+                .active(true)
                 .build();
     }
 
@@ -19,7 +19,7 @@ public class TestDataUtil {
                 .firstName("Nikola")
                 .lastName("Jokic")
                 .fullName("Nikola Jokic")
-                .isActive(true)
+                .active(true)
                 .build();
     }
 
@@ -28,7 +28,7 @@ public class TestDataUtil {
                 .firstName("Kobe")
                 .lastName("Bryant")
                 .fullName("Kobe Bryant")
-                .isActive(false)
+                .active(false)
                 .build();
     }
 }
