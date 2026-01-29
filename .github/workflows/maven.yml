@@ -58,6 +58,7 @@ jobs:
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ steps.project-version.outputs.version }}
             ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
