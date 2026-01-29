@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Java CI with Maven and Docker
 
 on:
   push:
@@ -11,12 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
           java-version: '25'
           distribution: 'temurin'
           cache: maven
+
       - name: Run tests
         run: mvn -B verify --file pom.xml
 
@@ -26,11 +28,53 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 25
         uses: actions/setup-java@v4
         with:
           java-version: '25'
           distribution: 'temurin'
           cache: maven
+
       - name: Build and package
         run: mvn -B package --file pom.xml -DskipTests
+
+  docker:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract Maven version
+        id: project-version
+        run: echo "version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ steps.project-version.outputs.version }}
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:latest
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ github.sha }}

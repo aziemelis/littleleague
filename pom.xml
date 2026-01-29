@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.aziemelis</groupId>
 	<artifactId>littleleauge</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>littleleauge</name>
-	<description>Little Leauge Spring Boot App</description>
+	<description>Little League Spring Boot App</description>
 	<url/>
 	<licenses>
 		<license/>
