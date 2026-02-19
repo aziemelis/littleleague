@@ -51,7 +51,7 @@ public class PlayerServiceImpl implements PlayerService {
             Optional.ofNullable(playerEntity.getFirstName()).ifPresent(existingPlayer::setFirstName);
             Optional.ofNullable(playerEntity.getLastName()).ifPresent(existingPlayer::setLastName);
             Optional.ofNullable(playerEntity.getFullName()).ifPresent(existingPlayer::setFullName);
-            Optional.ofNullable(playerEntity.getActive()).ifPresent(existingPlayer::setActive);
+            Optional.ofNullable(playerEntity.getGamesPlayedCurrentSeasonFlag()).ifPresent(existingPlayer::setGamesPlayedCurrentSeasonFlag);
             return playerRepository.save(existingPlayer);
         }).orElseThrow(() -> new RuntimeException("Player with id " + id + " not found!"));
     }

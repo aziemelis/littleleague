@@ -20,7 +20,7 @@ public class TestDataUtil {
                 .firstName("Anthony")
                 .lastName("Edwards")
                 .fullName("Anthony Edwards")
-                .active(true)
+                .rosterStatus(true)
                 .build();
     }
 

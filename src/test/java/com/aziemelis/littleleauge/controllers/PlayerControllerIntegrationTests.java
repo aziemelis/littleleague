@@ -199,7 +199,7 @@ public class PlayerControllerIntegrationTests {
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.fullName").value(savedPlayerEntity.getFullName())
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.active").value(savedPlayerEntity.getActive())
+                MockMvcResultMatchers.jsonPath("$.active").value(savedPlayerEntity.getGamesPlayedCurrentSeasonFlag())
         );
     }
 
@@ -243,7 +243,7 @@ public class PlayerControllerIntegrationTests {
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.fullName").value("Updated Full Name")
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.active").value(savedPlayerEntity.getActive())
+                MockMvcResultMatchers.jsonPath("$.active").value(savedPlayerEntity.getGamesPlayedCurrentSeasonFlag())
         );
     }
 
